@@ -1,1 +1,14 @@
-<h1>TOP PAGE :)</h1>
+{% extends 'base.html' %}
+
+{% block main %}
+
+<h1>HOME</h1>
+{% if username == 'myself' %}
+<h2>{{ username }}</h2>
+{% elif username %}
+<h2>Hello {{ username }}!</h2>
+{% else %}
+<h2>Hello {{ username }}!?</h2>
+{% endif %}
+
+{% endblock %}

@@ -1,1 +1,15 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block main %}
 <h1>ABOUT PAGE :)</h1>
+<h2>I have built {{ num_services|intcomma }} django apps! ({% now "Y/m/d h:m" %})</h2>
+<h2>My Skills</h2>
+<ul>
+    {% for skill in skillset %}
+    <li>{{ skill }}</li>
+    {% empty %}
+    <li>No skills....</li>
+    {% endfor %}
+</ul>
+{% endblock %}
