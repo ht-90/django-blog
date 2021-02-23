@@ -29,7 +29,9 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'django-ht-90.herokuapp.com'
+]
 
 
 # Application definition
