@@ -3,7 +3,7 @@ django
 dj-database-url
 
 # database
-psycopgs-binary
+psycopg2-binary
 
 # web server
 gunicorn
