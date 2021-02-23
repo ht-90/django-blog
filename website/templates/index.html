@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block main %}
 
@@ -10,5 +11,5 @@
 {% else %}
 <h2>Hello {{ username }}!?</h2>
 {% endif %}
-
+<img src="{% static 'img/sample.jpg' %}" />
 {% endblock %}

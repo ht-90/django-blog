@@ -3,3 +3,6 @@ django
 
 # config
 python-dotenv
+
+# static file serving
+whitenoise
