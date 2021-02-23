@@ -1,5 +1,9 @@
 # web framework
 django
+dj-database-url
+
+# database
+psycopgs-binary
 
 # web server
 gunicorn
