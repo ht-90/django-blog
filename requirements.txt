@@ -1,6 +1,9 @@
 # web framework
 django
 
+# web server
+gunicorn
+
 # config
 python-dotenv
 
