@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+
+{% block main %}
+<h2>New post</h2>
+<form method="post">
+    {% csrf_token %}  <!-- django security token -->
+    {{ form.as_p }}
+    <input type="submit" value="submit" class="btn btn-primary">
+</form>
+{% endblock %}
