@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('website/', include('website.urls')),  # direct request to website.urls
     path('blog/', include('blog.urls')),  # direct request to blog.urls
+    path('form/', include('form.urls')), 
 ]
