@@ -15,10 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
+
+from django.views.generic import TemplateView
+from registration.views import SignUpView, ActivateView
+
+index_view =TemplateView.as_view(template_name="registration/index.html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', login_required(index_view), name="registration"),
+    path('', include("django.contrib.auth.urls")),
     path('website/', include('website.urls')),  # direct request to website.urls
     path('blog/', include('blog.urls')),  # direct request to blog.urls
     path('form/', include('form.urls')), 
+    path('signup/', SignUpView.as_view(), name="signup"),
+    path('activate/<uidb64>/<token>/', ActivateView.as_view(), name="activate"),  # receive user id and token for activate page
 ]

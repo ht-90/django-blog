@@ -1,0 +1,7 @@
+{% extends "registration_base.html" %}
+{% block main %}
+<h2>Member's Page</h2>
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+<p><a href="{% url 'password_change' %}">Change Password</a></p>
+<p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+{% endblock %}
