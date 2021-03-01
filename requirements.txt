@@ -1,6 +1,7 @@
 # web framework
 django
 dj-database-url
+django-anymail[mailgun]
 
 # database
 psycopg2-binary

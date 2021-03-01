@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'website',
     'blog',
     'form',
+    'anymail',  # pip install django-anymail package
 ]
 
 MIDDLEWARE = [
@@ -133,9 +134,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Registration and log in
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
@@ -148,3 +146,14 @@ LOGOUT_REDIRECT_URL = '/login/'
 AUTH_USER_MODEL = 'registration.User'
 
 FRONTEND_URL = "http://127.0.0.1:8000"
+
+# Email settings
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.environ['MAILGUN_API'],
+    "MAILGUN_SENDER_DOMAIN": os.environ['MAILGUN_DOMAIN'],
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+
+# Email used to send to user
+DEFAULT_FROM_EMAIL = "example@test.com"
+SERVER_EMAIL = "server@test.com"
