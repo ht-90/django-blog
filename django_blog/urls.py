@@ -16,14 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 from django.views.generic import TemplateView
 from registration.views import SignUpView, ActivateView
 
 index_view =TemplateView.as_view(template_name="registration/index.html")
 
+# Update design of admin page 
+admin.site.site_title = 'Internal Admin Site'
+admin.site.site_header = 'Internal Admin Site'
+admin.site.index_title = 'Menu'
+# Remove Group from default authentication and authorization option
+admin.site.unregister(Group)
+# Global setting to hide dele option in admin site (for safety)
+admin.site.disable_action('delete_selected')
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('staff-admin/', admin.site.urls),  # can change url for admin site for better security
     path('', login_required(index_view), name="registration"),
     path('', include("django.contrib.auth.urls")),
     path('website/', include('website.urls')),  # direct request to website.urls
