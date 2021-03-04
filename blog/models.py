@@ -56,6 +56,8 @@ class Post(models.Model):
         blank=True,
     )
 
+    published = models.BooleanField(default=True)  # must be default=True if there is existing objects!
+
     def __str__(self):
         return self.title
     
