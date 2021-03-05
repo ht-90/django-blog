@@ -2,8 +2,8 @@ from django.db import models
 from django.urls import reverse_lazy
 
 
-class Blog(models.MOdel):
-    title = models.CharFields(max_length=255)
+class Blog(models.Model):
+    title = models.CharField(max_length=255)
     # url slug not to be duplicated
     slug = models.SlugField(unique=True)
 
