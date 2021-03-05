@@ -1,12 +1,22 @@
 from django.contrib import admin
+from django import forms
 from . import models
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.admin import AdminSite
 
 
+class PostInline(admin.TabularInline):
+    """Adding extra object entry with empty box for directly entering new object"""
+    model = models.Post
+    fields = ("title", "body")
+    extra = 1
+
+
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
+    # Allow users to create object inline using PostInline
+    inlines = [PostInline]
     pass
 
 
@@ -14,6 +24,20 @@ class CategoryAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     pass
 
+
+class PostAdminForm(forms.ModelForm):
+    """Overwrite default admin form with customized one"""
+    class Meta:
+        labels = {
+            "title": "Blog Title",
+            "name": "Name",
+        }
+    def clean(self):
+        """Validation of form input for blog post body"""
+        body = self.cleaned_data.get("body")
+        if "<" in body:  # this just assumes that < is html tag...
+            raise forms.ValidationError("Cannot use HTML tag")
+        
 
 class PostTitleFilter(admin.SimpleListFilter):
     """Create custom text filters"""
@@ -35,6 +59,27 @@ class PostTitleFilter(admin.SimpleListFilter):
 
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
+    # Fields for creating objects
+    readonly_fields = ("created", "updated")
+    fieldsets = [
+        (None, {"fields": ("title", )}),
+        ("contents", {"fields": ("body", )}),
+        ("category", {"fields": ("category", "tag")}),
+        ("meta", {"fields": ("published", "created", "updated")}),
+    ]
+    form = PostAdminForm
+    filter_horizontal = ("tag", )  # filter UI for tag editing
+
+    def save_model(self, request, obj, form, change):
+        """add actions when post is saved on admin page"""
+        print("before save")
+        super().save_model(request, obj, form, change)
+        print("after save")
+    
+    class Media:
+        js = ("post.js", )  # load js file
+
+    # Lists
     list_display = ('id', 'title', 'category', 'tags_summary', 'published', 'created', 'updated')  # tags are in a array
     list_select_related = ('category', )  # category is a fforeignkey which will cause many db access (n+1 problem). To avoid it, use list_select_related (must add , in it)
     list_editable = ('title', 'category')  # make fields editable
