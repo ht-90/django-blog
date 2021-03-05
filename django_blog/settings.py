@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,6 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'website',
+    'blog',
+    'form',
+    'anymail',  # pip install django-anymail package
 ]
 
 MIDDLEWARE = [
@@ -65,7 +69,7 @@ ROOT_URLCONF = 'django_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,3 +132,30 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Static files location for the whole project
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Registration and log in
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+# HTTPS for handling log in information - disable and delete cookies for local dev
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+
+# User object in models
+AUTH_USER_MODEL = 'registration.User'
+
+FRONTEND_URL = "http://127.0.0.1:8000"
+
+# Email settings
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.environ['MAILGUN_API'],
+    "MAILGUN_SENDER_DOMAIN": os.environ['MAILGUN_DOMAIN'],
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+
+# Email used to send to user
+DEFAULT_FROM_EMAIL = "example@test.com"
+SERVER_EMAIL = "server@test.com"

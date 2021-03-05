@@ -1,0 +1,9 @@
+{% extends "registration_base.html" %}
+{% block main %}
+{% if result %}
+  <p>Email confirmation successful!</p>
+  <p><a href="{% url 'login' %}">Log in</a></p>
+{% else %}
+  <p>Page not found...</p>
+{% endif %}
+{% endblock %}
