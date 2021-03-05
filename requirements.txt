@@ -5,6 +5,7 @@ django-anymail[mailgun]
 
 # database
 psycopg2-binary
+mysqlclient
 
 # web server
 gunicorn

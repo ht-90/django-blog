@@ -2,6 +2,17 @@ from django.db import models
 from django.urls import reverse_lazy
 
 
+class Blog(models.Model):
+    title = models.CharField(max_length=255)
+    # url slug not to be duplicated
+    slug = models.SlugField(unique=True)
+    field1 = models.CharField(max_length=255, default="")
+    field2 = models.CharField(max_length=255, default="")
+    field3 = models.CharField(max_length=255, default="")
+    field4 = models.CharField(max_length=255, default="")
+    field5 = models.CharField(max_length=255, default="")
+    field6 = models.CharField(max_length=255, default="")
+
 class Category(models.Model):
     name = models.CharField(
         max_length=255,
