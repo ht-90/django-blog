@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'blog',
     'form',
     'anymail',  # pip install django-anymail package
+    'sample',
 ]
 
 MIDDLEWARE = [

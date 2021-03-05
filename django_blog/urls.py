@@ -21,6 +21,7 @@ from django.contrib.auth.models import Group
 from django.views.generic import TemplateView
 from registration.views import SignUpView, ActivateView
 
+
 index_view =TemplateView.as_view(template_name="registration/index.html")
 
 # Update design of admin page 
@@ -41,4 +42,5 @@ urlpatterns = [
     path('form/', include('form.urls')), 
     path('signup/', SignUpView.as_view(), name="signup"),
     path('activate/<uidb64>/<token>/', ActivateView.as_view(), name="activate"),  # receive user id and token for activate page
+    path('sample/', include('sample.urls')),
 ]
