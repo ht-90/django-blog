@@ -30,33 +30,43 @@ class Post(models.Model):
         editable=False,
         blank=True,
         null=True,
+        verbose_name="Date created",  # overwrite default name displayed next to input box
     )
     updated = models.DateTimeField(
         auto_now_add=True,
         editable=False,
         blank=False,
         null=True,
+        verbose_name="Date updated",
     )
     title = models.CharField(
         max_length=255,
         blank=False,
         null=True,
+        verbose_name="Title",
     )
     body = models.TextField(
         blank=True,
         null=True,
+        verbose_name="Body",
+        help_text="HTML tags cannot be used.",  # show text just below form box
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
         null=True,
+        verbose_name="Category",
     )
     tag = models.ManyToManyField(
         Tag,
         blank=True,
+        verbose_name="Tag",
     )
 
-    published = models.BooleanField(default=True)  # must be default=True if there is existing objects!
+    published = models.BooleanField(
+        default=True,
+        verbose_name="Published",
+    )  # must be default=True if there is existing objects!
 
     def __str__(self):
         return self.title
