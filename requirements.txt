@@ -15,3 +15,6 @@ python-dotenv
 
 # static file serving
 whitenoise
+
+# pdf generator
+reportlab
